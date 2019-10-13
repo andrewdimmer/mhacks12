@@ -90,6 +90,7 @@ const App: React.FunctionComponent = () => {
       firebaseInit(handleChangeSpaceOptions, setNowPlaying, setNotification);
       getGenres(setGenreOptions, setLikedGenres, setNotification);
       getArtists(setArtistOptions, setLikedArtists, setNotification);
+      setLoadingMessage("");
     }
   };
   loader();
