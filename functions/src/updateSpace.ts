@@ -1,5 +1,6 @@
 import * as functions from "firebase-functions";
 import * as firebase from "firebase";
+import spaceFirebaseObjectTemplate from "./templates/spaceTemplate";
 
 const firebaseApp = firebase.initializeApp(
   JSON.parse(process.env.FIREBASE_CONFIG as string)
@@ -21,13 +22,31 @@ export const addSpaceFunction = functions.https.onRequest(
             console.log(body.spaceOptionName);
             if (data.LIST_OF_SPACES.indexOf(body.spaceOptionName) < 0) {
               data.LIST_OF_SPACES.push(body.spaceOptionName);
+              console.log("Starting update");
               ref
                 .update(data)
                 .then(() => {
-                  response.setHeader("Access-Control-Allow-Origin", "*"); // TODO: Make more secure later!
-                  response.send("Successfully Added Space Name Option!");
+                  console.log("Update complete, creating document...");
+                  // FIXME: Its Not Working
+                  const spaceData = spaceFirebaseObjectTemplate;
+                  spaceData.spaceName = body.spaceOptionName;
+                  firebaseApp
+                    .firestore()
+                    .collection("spaces")
+                    .doc(body.spaceOptionName)
+                    .set(spaceData)
+                    .then(() => {
+                      response.setHeader("Access-Control-Allow-Origin", "*"); // TODO: Make more secure later!
+                      response.send("Successfully Added Space Name Option!");
+                    })
+                    .catch(err => {
+                      console.log(err);
+                      response.setHeader("Access-Control-Allow-Origin", "*"); // TODO: Make more secure later!
+                      response.status(500).send("Unable to create new object!");
+                    });
                 })
-                .catch(() => {
+                .catch(err => {
+                  console.log(err);
                   response.setHeader("Access-Control-Allow-Origin", "*"); // TODO: Make more secure later!
                   response.status(500).send("Unable to update Firebase data!");
                 });

@@ -106,7 +106,7 @@ export const getArtistsFunction = functions.https.onRequest(
         { key: "wennywayneshepherd", label: "Kenny Wayne Shepherd" },
         { key: "samanthafish", label: "Samantha Fish" },
         { key: "bluesbrothers", label: "Blues Brothers" },
-        { key: "paul thorn", label: "Paul Thorn" }
+        { key: "paulthorn", label: "Paul Thorn" }
       ]
     };
     const genres: string = request.body.genres;

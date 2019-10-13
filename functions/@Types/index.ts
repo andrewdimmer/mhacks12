@@ -8,3 +8,7 @@ export declare interface Artist {
   label: string;
   photoUrl?: string;
 }
+
+export declare interface ArtistWtihUsers extends Artist {
+  users: string[];
+}
