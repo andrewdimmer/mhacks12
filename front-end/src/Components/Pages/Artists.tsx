@@ -51,6 +51,7 @@ const GenresPage: React.FunctionComponent<ArtistProps> = ({
                   <Checkbox
                     tabIndex={-1}
                     disableRipple
+                    color="primary"
                     checked={likedArtists[i]}
                     value={artistOptions[i].key}
                   />

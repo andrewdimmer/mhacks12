@@ -12,6 +12,7 @@ import { Genre, Artist } from "../@Types";
 import firebaseInit from "./scripts/firebase";
 import Genres from "./Components/Pages/Genres";
 import Artists from "./Components/Pages/Artists";
+import Playing from "./Components/Pages/Playing";
 
 export enum STAGES {
   "SPACE",
@@ -106,8 +107,19 @@ const App: React.FunctionComponent = () => {
     setLikedGenres(newArray);
   };
 
-  const handleSubmit = () => {
+  const handleGenreSubmit = () => {
     setStage(STAGES.ARTIST);
+  };
+
+  //Artist Handlers
+  const handleLikedArtist = (i: number) => {
+    const newArray = likedArtists.slice();
+    newArray[i] = !newArray[i];
+    setLikedArtists(newArray);
+  };
+
+  const handleArtistSubmit = () => {
+    setStage(STAGES.PLAYING);
   };
 
   return (
@@ -134,16 +146,27 @@ const App: React.FunctionComponent = () => {
               genreOptions={genreOptions}
               likedGenres={likedGenres}
               handleLikedGenre={handleLikedGenre}
-              handleSubmit={handleSubmit}
+              handleSubmit={handleGenreSubmit}
               setStage={setStage}
               classes={classes}
             ></Genres>
           )}
           {stage === STAGES.ARTIST && (
-            <Typography variant="body1">Artist</Typography>
+            <Artists
+              artistOptions={artistOptions}
+              likedArtists={likedArtists}
+              handleLikedArtist={handleLikedArtist}
+              handleSubmit={handleArtistSubmit}
+              setStage={setStage}
+              classes={classes}
+            ></Artists>
           )}
           {stage === STAGES.PLAYING && (
-            <Typography variant="body1">Playing</Typography>
+            <Playing
+              nowPlaying={nowPlaying}
+              setStage={setStage}
+              classes={classes}
+            ></Playing>
           )}
         </Container>
       )}
