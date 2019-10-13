@@ -8,6 +8,9 @@ API_ENDPOINT = "https://us-central1-mhacks12-gcp.cloudfunctions.net/removeSpace"
 # data to be sent to api 
 data = {"spaceOptionName": str(sys.argv[1])} 
 
+print(data)
+
+
 # sending post request and saving response as response object 
 r = requests.post(url = API_ENDPOINT, data = data) 
 
