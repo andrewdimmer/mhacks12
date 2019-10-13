@@ -81,6 +81,7 @@ const App: React.FunctionComponent = () => {
   };
   const handleChangeSpaceName = (newSpaceName: string) => {
     setSpaceName(newSpaceName);
+    setStage(STAGES.GENRE);
   };
 
   // Initialize Dynamic Values
@@ -111,6 +112,7 @@ const App: React.FunctionComponent = () => {
               spaceOptions={spaceOptions}
               spaceName={spaceName}
               handleChangeSpaceName={handleChangeSpaceName}
+              classes={classes}
             ></Spaces>
           )}
           {stage === STAGES.GENRE && (

@@ -13,6 +13,9 @@ export const styles = makeStyles((theme: Theme) =>
     margined: {
       margin: theme.spacing(2)
     },
+    topMargined: {
+      marginTop: theme.spacing(2)
+    },
     loadingContainer: {
       width: "100vw",
       height: "100vh",
@@ -23,6 +26,9 @@ export const styles = makeStyles((theme: Theme) =>
     },
     loadingCircle: {
       margin: "40px"
+    },
+    horizontalCenter: {
+      textAlign: "center"
     }
   })
 );
