@@ -1,11 +1,12 @@
 # importing the requests library 
-import requests 
+import requests
+import sys
 
 # defining the api-endpoint 
-API_ENDPOINT = "https://us-central1-mhacks12-gcp.cloudfunctions.net/updateSpace"
+API_ENDPOINT = "https://us-central1-mhacks12-gcp.cloudfunctions.net/removeSpace"
 
 # data to be sent to api 
-data = {"spaceOptionName": "Mhacks12-1"} 
+data = {"spaceOptionName": str(sys.argv[1])} 
 
 # sending post request and saving response as response object 
 r = requests.post(url = API_ENDPOINT, data = data) 
