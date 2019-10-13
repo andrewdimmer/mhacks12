@@ -165,6 +165,10 @@ const App: React.FunctionComponent = () => {
               handleSubmit={handleArtistSubmit}
               setStage={setStage}
               classes={classes}
+              artistNumber={artistNumber}
+              setArtistNumber={setArtistNumber}
+              genreOptions={genreOptions}
+              likedGenres={likedGenres}
             ></Artists>
           )}
           {stage === STAGES.PLAYING && (

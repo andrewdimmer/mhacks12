@@ -16,6 +16,10 @@ interface ArtistProps {
   handleSubmit: Function;
   setStage: Function;
   classes: any;
+  artistNumber: number;
+  setArtistNumber: Function;
+  genreOptions: Genre[];
+  likedGenres: boolean[];
 }
 
 const GenresPage: React.FunctionComponent<ArtistProps> = ({
@@ -24,7 +28,11 @@ const GenresPage: React.FunctionComponent<ArtistProps> = ({
   handleLikedArtist,
   handleSubmit,
   setStage,
-  classes
+  classes,
+  artistNumber,
+  setArtistNumber,
+  genreOptions,
+  likedGenres
 }) => {
   return (
     <Fragment>
@@ -36,7 +44,7 @@ const GenresPage: React.FunctionComponent<ArtistProps> = ({
           Select artists you want to hear
         </Typography>
         <List>
-          {artistOptions.map((item: Genre, i: number) => {
+          {/*artistOptions.map((item: Genre, i: number) => {
             console.log(i);
             return (
               <Fragment key={i}>
@@ -59,7 +67,7 @@ const GenresPage: React.FunctionComponent<ArtistProps> = ({
                 </ListItem>
               </Fragment>
             );
-          })}
+          })*/}
           <Button
             variant="contained"
             color="primary"
