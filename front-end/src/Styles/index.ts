@@ -16,10 +16,18 @@ export const styles = makeStyles((theme: Theme) =>
     topMargined: {
       marginTop: theme.spacing(2)
     },
+    topMargined2: {
+      marginTop: theme.spacing(4)
+    },
     loadingContainer: {
       width: "100vw",
       height: "100vh",
       textAlign: "center"
+    },
+    centerStyle: {
+      marginLeft: "25%",
+      testAlign: "center",
+      marginTop: theme.spacing(2)
     },
     loadingContent: {
       // TODO: Add Style Here to Center it Vertically

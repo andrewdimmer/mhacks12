@@ -47,7 +47,7 @@ const SpacesPage: React.FunctionComponent<SpacesProps> = ({
                   variant="outlined"
                   color="primary"
                   onClick={() => {
-                    handleChangeSpaceName();
+                    handleChangeSpaceName(spaceOptions[i]);
                   }}
                 >
                   {item}
