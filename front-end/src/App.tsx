@@ -1,25 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Container, Typography } from "@material-ui/core";
+import React, { Fragment } from "react";
+import Loading from "./Components/Notifications/Loading";
+import Spaces from "./Components/Pages/Spaces";
+import { styles } from "./Styles";
+import { THEME } from "./Styles/theme";
 
-const App: React.FC = () => {
+enum STAGES {
+  "SPACE",
+  "GENRE",
+  "ARTIST",
+  "PLAYING"
+}
+
+const App: React.FunctionComponent = () => {
+  // Styles
+  const classes = styles(THEME);
+
+  // State and Props
+  const [loadingMessage, setLoadingMessage] = React.useState(
+    "Loading Nearby Spaces..."
+  );
+  const [stage, setStage] = React.useState(STAGES.SPACE);
+  const [spaceOptions, setSpaceOptions] = React.useState<string[]>([]);
+  const [spaceName, setSpaceName] = React.useState("");
+
+  // Space Handlers
+  const handleChangeSpaceName = (newSpaceName: string) => {
+    setSpaceName(newSpaceName);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      {loadingMessage && <Loading message={loadingMessage} classes={classes} />}
+      {!loadingMessage && (
+        <Container>
+          {stage === STAGES.SPACE && (
+            <Spaces
+              spaceOptions={spaceOptions}
+              spaceName={spaceName}
+              handleChangeSpaceName={handleChangeSpaceName}
+            ></Spaces>
+          )}
+          {stage === STAGES.GENRE && (
+            <Typography variant="body1">Genre</Typography>
+          )}
+          {stage === STAGES.ARTIST && (
+            <Typography variant="body1">Artist</Typography>
+          )}
+          {stage === STAGES.PLAYING && (
+            <Typography variant="body1">Playing</Typography>
+          )}
+        </Container>
+      )}
+    </Fragment>
   );
 }
 
