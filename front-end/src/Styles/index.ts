@@ -16,6 +16,9 @@ export const styles = makeStyles((theme: Theme) =>
     topMargined: {
       marginTop: theme.spacing(2)
     },
+    topMargined2: {
+      marginTop: theme.spacing(4)
+    },
     loadingContainer: {
       width: "100vw",
       height: "100vh",
