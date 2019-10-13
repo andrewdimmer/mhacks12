@@ -9,6 +9,7 @@ import CustomizedSnackbars, {
   MessageProps
 } from "./Components/Notifications/Snackbars";
 import { Genre, Artist } from "../@Types";
+import firebaseInit from "./scripts/firebase";
 
 enum STAGES {
   "SPACE",
@@ -27,7 +28,9 @@ const App: React.FunctionComponent = () => {
   );
   const [notification, setNotification] = React.useState<MessageProps>({
     message: "",
-    type: "info"
+    type: "info",
+    open: false,
+    update: () => {}
   });
   const [loaded, setLoaded] = React.useState(false);
   const [stage, setStage] = React.useState(STAGES.SPACE);
@@ -40,29 +43,65 @@ const App: React.FunctionComponent = () => {
   const [artistNumber, setArtistNumber] = React.useState(0);
   const [nowPlaying, setNowPlaying] = React.useState("");
 
+  // Space Handlers
+  const handleChangeSpaceOptions = (newSpaceOptions: string[]) => {
+    if (newSpaceOptions.length > 0) {
+      if (newSpaceOptions.indexOf(spaceName) > -1 || !spaceName) {
+        // Current Space is still in options
+        if (newSpaceOptions !== spaceOptions) {
+          setSpaceOptions(newSpaceOptions);
+          setNotification({
+            message: "New spaces may be available!",
+            type: "info",
+            open: true,
+            update: setNotification
+          });
+        }
+      } else {
+        // Current space is no longer available
+        setSpaceOptions(newSpaceOptions);
+        setSpaceName("");
+        setStage(STAGES.SPACE);
+        setNotification({
+          message: "Your old space is no longer available!",
+          type: "warning",
+          open: true,
+          update: setNotification
+        });
+      }
+    } else {
+      setNotification({
+        message:
+          "Unable to find any spaces! Please try moving closer to the transmitter, or check that it is on.",
+        type: "warning",
+        open: false,
+        update: setNotification
+      });
+    }
+  };
+  const handleChangeSpaceName = (newSpaceName: string) => {
+    setSpaceName(newSpaceName);
+  };
+
   // Initialize Dynamic Values
   const loader = () => {
     if (!loaded) {
       setLoaded(true);
+      firebaseInit(handleChangeSpaceOptions, setNowPlaying, setNotification);
       getGenres(setGenreOptions, setLikedGenres, setNotification);
       getArtists(setArtistOptions, setLikedArtists, setNotification);
     }
   };
   loader();
 
-  // Space Handlers
-  const handleChangeSpaceName = (newSpaceName: string) => {
-    setSpaceName(newSpaceName);
-  };
-
   return (
     <Fragment>
-      {notification.message && (
-        <CustomizedSnackbars
-          message={notification.message}
-          type={notification.type}
-        />
-      )}
+      <CustomizedSnackbars
+        message={notification.message}
+        type={notification.type}
+        open={notification.open}
+        update={setNotification}
+      />
       {loadingMessage && <Loading message={loadingMessage} classes={classes} />}
       {!loadingMessage && (
         <Container>

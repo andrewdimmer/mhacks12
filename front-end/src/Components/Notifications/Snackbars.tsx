@@ -90,15 +90,20 @@ const MySnackbarContentWrapper: React.FunctionComponent<SnackbarProps> = (
 export interface MessageProps {
   message: string;
   type: keyof typeof variantIcon;
+  open: boolean;
+  update: Function;
 }
-export default function CustomizedSnackbars({ message, type }: MessageProps) {
-  const [open, setOpen] = React.useState(true);
-
+export default function CustomizedSnackbars({
+  message,
+  type,
+  open,
+  update
+}: MessageProps) {
   const handleClose = (event?: SyntheticEvent, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    update({ message: "", type: "info", open: false, update });
   };
 
   return (

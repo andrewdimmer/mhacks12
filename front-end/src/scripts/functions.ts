@@ -8,7 +8,6 @@ export const getGenres = (
 ): void => {
   axios(`${urlRoot}/getGenres`)
     .then(newGenres => {
-      console.log("newGenres", newGenres);
       setGenreOptions(newGenres.data);
       setLikedGenres(
         newGenres.data.map(() => {
@@ -20,7 +19,9 @@ export const getGenres = (
       console.log("Unable to get genres, ", err);
       displayErrorMessage({
         message: "Unable to get genres. Please refresh the page.",
-        type: "error"
+        type: "error",
+        open: true,
+        update: displayErrorMessage
       });
     });
 };
@@ -32,7 +33,6 @@ export const getArtists = (
 ): void => {
   axios(`${urlRoot}/getArtists`)
     .then(newArtists => {
-      console.log("newArtists", newArtists);
       setArtistOptions(newArtists.data);
       setLikedArtists(
         newArtists.data.map(() => {
@@ -44,7 +44,9 @@ export const getArtists = (
       console.log("Unable to get artists, ", err);
       displayErrorMessage({
         message: "Unable to get artists. Please refresh the page.",
-        type: "error"
+        type: "error",
+        open: true,
+        update: displayErrorMessage
       });
     });
 };
