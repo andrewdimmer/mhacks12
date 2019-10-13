@@ -94,7 +94,13 @@ const App: React.FunctionComponent = () => {
       setLoaded(true);
       firebaseInit(handleChangeSpaceOptions, setNowPlaying, setNotification);
       getGenres(setGenreOptions, setLikedGenres, setNotification);
-      getArtists(setArtistOptions, setLikedArtists, setNotification);
+      getArtists(
+        setArtistOptions,
+        setLikedArtists,
+        setNotification,
+        genreOptions,
+        likedGenres
+      );
       setLoadingMessage("");
     }
   };
