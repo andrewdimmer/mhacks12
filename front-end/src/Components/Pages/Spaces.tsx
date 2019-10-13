@@ -15,12 +15,18 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const SuccessPage: React.FunctionComponent<any> = ({
+interface SpacesProps {
+  spaceOptions: string[];
+  spaceName: string;
+  handleChangeSpaceName: Function;
+}
+
+const SpacesPage: React.FunctionComponent<SpacesProps> = ({
   spaceName,
-  handleSpaceNameChange
+  handleChangeSpaceName
 }) => {
   const classes = useStyles();
-  console.log(handleSpaceNameChange);
+  console.log(handleChangeSpaceName);
   return (
     <Fragment>
       <Typography variant="h1">Spaces</Typography>
@@ -31,7 +37,8 @@ const SuccessPage: React.FunctionComponent<any> = ({
           name="Space"
           value={spaceName}
           onChange={(event, value) => {
-            handleSpaceNameChange(value);
+            console.log("value", value);
+            handleChangeSpaceName(value);
           }}
         >
           <FormControlLabel value="female" control={<Radio />} label="Female" />
@@ -41,4 +48,4 @@ const SuccessPage: React.FunctionComponent<any> = ({
   );
 };
 
-export default SuccessPage;
+export default SpacesPage;
