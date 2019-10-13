@@ -1,9 +1,12 @@
-import { Container, Typography } from "@material-ui/core";
+import { Container, Typography, Snackbar } from "@material-ui/core";
 import React, { Fragment } from "react";
 import Loading from "./Components/Notifications/Loading";
 import Spaces from "./Components/Pages/Spaces";
 import { styles } from "./Styles";
 import { THEME } from "./Styles/theme";
+import CustomizedSnackbars, {
+  MessageProps
+} from "./Components/Notifications/Snackbars";
 
 enum STAGES {
   "SPACE",
@@ -20,6 +23,10 @@ const App: React.FunctionComponent = () => {
   const [loadingMessage, setLoadingMessage] = React.useState(
     "Loading Nearby Spaces..."
   );
+  const [notification, setNotification] = React.useState<MessageProps>({
+    message: "",
+    type: "info"
+  });
   const [stage, setStage] = React.useState(STAGES.SPACE);
   const [spaceOptions, setSpaceOptions] = React.useState<string[]>([]);
   const [spaceName, setSpaceName] = React.useState("");
@@ -31,6 +38,12 @@ const App: React.FunctionComponent = () => {
 
   return (
     <Fragment>
+      {notification.message && (
+        <CustomizedSnackbars
+          message={notification.message}
+          type={notification.type}
+        />
+      )}
       {loadingMessage && <Loading message={loadingMessage} classes={classes} />}
       {!loadingMessage && (
         <Container>
@@ -54,6 +67,6 @@ const App: React.FunctionComponent = () => {
       )}
     </Fragment>
   );
-}
+};
 
 export default App;
