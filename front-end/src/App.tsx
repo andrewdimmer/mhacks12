@@ -4,9 +4,11 @@ import Loading from "./Components/Notifications/Loading";
 import Spaces from "./Components/Pages/Spaces";
 import { styles } from "./Styles";
 import { THEME } from "./Styles/theme";
+import { getGenres, getArtists } from "./scripts/functions";
 import CustomizedSnackbars, {
   MessageProps
 } from "./Components/Notifications/Snackbars";
+import { Genre, Artist } from "../@Types";
 
 enum STAGES {
   "SPACE",
@@ -27,9 +29,26 @@ const App: React.FunctionComponent = () => {
     message: "",
     type: "info"
   });
+  const [loaded, setLoaded] = React.useState(false);
   const [stage, setStage] = React.useState(STAGES.SPACE);
   const [spaceOptions, setSpaceOptions] = React.useState<string[]>([]);
   const [spaceName, setSpaceName] = React.useState("");
+  const [genreOptions, setGenreOptions] = React.useState<Genre[]>([]);
+  const [likedGenres, setLikedGenres] = React.useState<boolean[]>([]);
+  const [artistOptions, setArtistOptions] = React.useState<Artist[]>([]);
+  const [likedArtists, setLikedArtists] = React.useState<boolean[]>([]);
+  const [artistNumber, setArtistNumber] = React.useState(0);
+  const [nowPlaying, setNowPlaying] = React.useState("");
+
+  // Initialize Dynamic Values
+  const loader = () => {
+    if (!loaded) {
+      setLoaded(true);
+      getGenres(setGenreOptions, setLikedGenres, setNotification);
+      getArtists(setArtistOptions, setLikedArtists, setNotification);
+    }
+  };
+  loader();
 
   // Space Handlers
   const handleChangeSpaceName = (newSpaceName: string) => {
